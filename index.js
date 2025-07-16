@@ -17,9 +17,9 @@ class MinecraftVoiceChat {
     this.translationService = null // Simulación de servicio de traducción
 
     // Actualiza la URL del WebSocket a ws://localhost:10000
-    this.webSocketUrl = "ws://localhost:10000"
+    this.webSocketUrl = "wss://otroerror.onrender.com" // Usa 'wss' para HTTPS
     // Actualiza la URL de la página web a http://localhost:10000
-    this.webUrl = "http://localhost:10000"
+    this.webUrl = "https://otroerror.onrender.com"
 
     this.init()
   }
