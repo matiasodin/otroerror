@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Voice Chat - Proximidad</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Pantalla de conexión -->
+    <div id="connectionScreen" class="screen active">
+        <div class="container">
+            <div class="header">
+                <i class="fas fa-microphone-alt"></i>
+                <h1>Minecraft Voice Chat</h1>
+                <p>Chat de voz por proximidad multilenguaje</p>
+            </div>
+            
+            <div class="connection-form">
+                <div class="form-group">
+                    <label for="gameTag">Game Tag</label>
+                    <input type="text" id="gameTag" placeholder="Tu nombre en Minecraft" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="language">Idioma</label>
+                    <select id="language">
+                        <option value="es">Español</option>
+                        <option value="en">English</option>
+                        <option value="pt">Português</option>
+                        <option value="fr">Français</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="roomCode">Código de Sala</label>
+                    <input type="text" id="roomCode" placeholder="Código de 6 dígitos (opcional)">
+                </div>
+                
+                <div class="form-group">
+                    <label for="maxPlayers">Capacidad Máxima (jugadores)</label>
+                    <input type="number" id="maxPlayers" value="50" min="2" max="200" required>
+                </div>
+                
+                <div class="buttons">
+                    <button id="joinRoom" class="btn primary">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Unirse a Sala
+                    </button>
+                    <button id="createRoom" class="btn secondary">
+                        <i class="fas fa-plus"></i>
+                        Crear Nueva Sala
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pantalla principal del chat -->
+    <div id="chatScreen" class="screen">
+        <div class="chat-container">
+            <!-- Header con info de sala -->
+            <div class="chat-header">
+                <div class="room-info">
+                    <h2 id="roomTitle">Sala: <span id="currentRoomCode">------</span></h2>
+                    <div class="room-stats">
+                        <span id="playerCount">0 jugadores</span>
+                        <span id="connectionStatus" class="status connected">Conectado</span>
+                    </div>
+                </div>
+                
+                <div class="header-controls">
+                    <button id="copyRoomCode" class="btn small" title="Copiar código">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                    <button id="leaveRoom" class="btn small danger" title="Salir">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Panel principal -->
+            <div class="chat-main">
+                <!-- Lista de jugadores -->
+                <div class="players-panel">
+                    <h3>Jugadores Conectados</h3>
+                    <div id="playersList" class="players-list">
+                        <!-- Los jugadores se cargarán dinámicamente -->
+                    </div>
+
+                    <!-- Nuevo: Panel de usuarios expulsados (solo para admins) -->
+                    <div id="bannedPlayersPanel" class="banned-players-panel hidden">
+                        <h3>Usuarios Expulsados</h3>
+                        <div id="bannedPlayersList" class="players-list">
+                            <!-- Los jugadores expulsados se cargarán dinámicamente -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel de chat y traducción -->
+                <div class="chat-panel">
+                    <div class="translation-display" id="translationDisplay">
+                        <div class="translation-bubble hidden" id="translationBubble">
+                            <div class="original-text"></div>
+                            <div class="translated-text"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-messages" id="chatMessages">
+                        <!-- Mensajes del sistema y traducciones -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controles de audio -->
+            <div class="audio-controls">
+                <div class="volume-controls">
+                    <label>Volumen General</label>
+                    <input type="range" id="masterVolume" min="0" max="100" value="80">
+                    <span id="volumeValue">80%</span>
+                </div>
+                
+                <div class="mic-controls">
+                    <button id="micToggle" class="btn mic-btn active" title="Micrófono">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                    <button id="deafToggle" class="btn deaf-btn" title="Silenciar todo">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <button id="pushToTalk" class="btn ptt-btn" title="Pulsar para hablar">
+                        <i class="fas fa-hand-paper"></i>
+                    </button>
+                </div>
+                
+                <!-- Controles de admin (solo para administradores) -->
+                <div class="admin-controls hidden" id="adminControls">
+                    <button id="muteAll" class="btn admin-btn">
+                        <i class="fas fa-microphone-slash"></i>
+                        Mutear Todos
+                    </button>
+                    <button id="speakToAll" class="btn admin-btn">
+                        <i class="fas fa-bullhorn"></i>
+                        Hablar a Todos
+                    </button>
+                    <button id="closeRoom" class="btn admin-btn danger">
+                        <i class="fas fa-times-circle"></i>
+                        Cerrar Sala
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Indicador de estado del micrófono -->
+    <div id="micIndicator" class="mic-indicator">
+        <div class="mic-level"></div>
+    </div>
+
+    <!-- Notificaciones -->
+    <div id="notifications" class="notifications"></div>
+
+    <script src="index.js"></script>
+</body>
+</html>
