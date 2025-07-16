@@ -16,6 +16,11 @@ class MinecraftVoiceChat {
     this.isRoomClosed = false // Nuevo: Estado de la sala (cerrada para nuevas entradas)
     this.translationService = null // Simulación de servicio de traducción
 
+    // Actualiza la URL del WebSocket a ws://localhost:10000
+    this.webSocketUrl = "ws://localhost:10000"
+    // Actualiza la URL de la página web a http://localhost:10000
+    this.webUrl = "http://localhost:10000"
+
     this.init()
   }
 
@@ -164,7 +169,7 @@ class MinecraftVoiceChat {
 
   async connectWebSocket(roomCode, gameTag, language, isCreator, maxPlayers) {
     return new Promise((resolve, reject) => {
-      this.socket = new WebSocket("ws://localhost:3000")
+      this.socket = new WebSocket(this.webSocketUrl)
 
       this.socket.onopen = () => {
         console.log("WebSocket connected.")
