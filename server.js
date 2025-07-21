@@ -17,10 +17,10 @@ class MinecraftVoiceChatServer {
   }
 
   setupExpress() {
-    // Servir archivos estáticos
+    // Servir archivos estáticos desde el directorio actual
     this.app.use(express.static(path.join(__dirname)))
 
-    // Ruta principal
+    // Ruta principal para servir index.html
     this.app.get("/", (req, res) => {
       res.sendFile(path.join(__dirname, "index.html"))
     })
@@ -795,6 +795,8 @@ class MinecraftVoiceChatServer {
     this.server.listen(port, () => {
       console.log(`Minecraft Voice Chat Server running on port ${port}`)
       console.log(`Open http://localhost:${port} to access the client`)
+      // Nuevo log para Render
+      console.log(`Server listening on actual port: ${port}`)
     })
   }
 }
